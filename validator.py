@@ -8,7 +8,7 @@ class Validator:
         return self.__invalid_chars
 
     def validate_chars(self, expression: str) -> bool:
-        match = re.findall(r'([^0-9+\-*/().% ]+)', expression, re.MULTILINE)
+        match = re.findall(r'([^0-9+\-*/(). ]+)', expression, re.MULTILINE)
         if match:
             self.__invalid_chars = match
             return False

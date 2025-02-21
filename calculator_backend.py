@@ -1,3 +1,5 @@
+from exceptions.invalid_chars_exception import InvalidCharsException
+from exceptions.invalid_expression import InvalidExpression
 from validator import Validator
 
 
@@ -9,15 +11,21 @@ class CalculatorBackend:
         is_valid_chars = self.validator.validate_chars(expression)
 
         if not is_valid_chars:
-            raise ValueError(f'Invalid characters in "{expression}": {self.validator.get_invalid_chars()}')
+            raise InvalidCharsException(self.validator.get_invalid_chars())
 
         try:
             return eval(expression, {'__builtins__': None}, {})
         except Exception as e:
-            raise ValueError(f'Invalid expression "{expression}": {e}') from e
+            raise InvalidExpression(expression) from e
 
 
 if __name__ == '__main__':
     calc = CalculatorBackend()
-    res = calc.calc('1+2=')
-    print(res)
+
+    try:
+        res = calc.calc('1/0')
+    except InvalidCharsException as e:
+        print(e)
+    except InvalidExpression as e:
+        print(e)
+    # print(res)

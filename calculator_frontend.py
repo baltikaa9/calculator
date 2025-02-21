@@ -44,7 +44,7 @@ class CalculatorFrontend(QMainWindow):
         try:
             result = self.calc_backend.calc(expression)
             self.ui.lineEdit_result.setText(str(result))
-        except ValueError as e:
+        except Exception as e:
             self.ui.lineEdit_result.setText(str(e))
 
     def __backspace(self) -> None:
