@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QMainWindow, QPushButton
 
 from calculator_backend import CalculatorBackend
 from ui.main_window import Ui_MainWindow
+from validator import Validator
 
 
 class CalculatorFrontend(QMainWindow):
@@ -15,7 +16,7 @@ class CalculatorFrontend(QMainWindow):
 
         self.__init_buttons()
 
-        self.calc_backend = CalculatorBackend()
+        self.calc_backend = CalculatorBackend(Validator())
 
         self.show()
 
