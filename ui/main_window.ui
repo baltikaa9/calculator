@@ -19,16 +19,34 @@
      <widget class="QWidget" name="widget" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLineEdit" name="lineEdit_expression"/>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Ввод</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QLineEdit" name="lineEdit_expression"/>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_result">
-         <property name="autoFillBackground">
-          <bool>false</bool>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Вывод</string>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QLineEdit" name="lineEdit_result">
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

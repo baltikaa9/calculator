@@ -15,8 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QLineEdit, QMainWindow,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QLineEdit,
+    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -31,17 +32,31 @@ class Ui_MainWindow(object):
         self.widget.setObjectName(u"widget")
         self.verticalLayout_2 = QVBoxLayout(self.widget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.lineEdit_expression = QLineEdit(self.widget)
+        self.groupBox = QGroupBox(self.widget)
+        self.groupBox.setObjectName(u"groupBox")
+        self.verticalLayout_3 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.lineEdit_expression = QLineEdit(self.groupBox)
         self.lineEdit_expression.setObjectName(u"lineEdit_expression")
 
-        self.verticalLayout_2.addWidget(self.lineEdit_expression)
+        self.verticalLayout_3.addWidget(self.lineEdit_expression)
 
-        self.lineEdit_result = QLineEdit(self.widget)
+
+        self.verticalLayout_2.addWidget(self.groupBox)
+
+        self.groupBox_2 = QGroupBox(self.widget)
+        self.groupBox_2.setObjectName(u"groupBox_2")
+        self.verticalLayout_4 = QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.lineEdit_result = QLineEdit(self.groupBox_2)
         self.lineEdit_result.setObjectName(u"lineEdit_result")
         self.lineEdit_result.setAutoFillBackground(False)
         self.lineEdit_result.setReadOnly(True)
 
-        self.verticalLayout_2.addWidget(self.lineEdit_result)
+        self.verticalLayout_4.addWidget(self.lineEdit_result)
+
+
+        self.verticalLayout_2.addWidget(self.groupBox_2)
 
 
         self.verticalLayout.addWidget(self.widget)
@@ -176,6 +191,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u043e\u0434", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0432\u043e\u0434", None))
         self.pushButton_multiply.setText(QCoreApplication.translate("MainWindow", u"*", None))
         self.pushButton_plus.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.pushButton_minus.setText(QCoreApplication.translate("MainWindow", u"-", None))
