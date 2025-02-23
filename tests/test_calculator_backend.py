@@ -1,14 +1,10 @@
 import pytest
 
-from exceptions.invalid_expression import InvalidExpression
+from src.exceptions.invalid_expression import InvalidExpression
 from calculator_backend import CalculatorBackend
 
 
 class TestCalculatorBackend:
-    @pytest.fixture
-    def calculator(self) -> CalculatorBackend:
-        return CalculatorBackend()
-
     @pytest.mark.parametrize(
         'expression, expected',
         [
@@ -23,11 +19,11 @@ class TestCalculatorBackend:
             ('3*(4+2)', 18),
         ]
     )
-    def test_calc(self, calculator: CalculatorBackend, expression, expected) -> None:
-        assert calculator.calc(expression) == expected
+    def test_calc(self, expression, expected) -> None:
+        assert CalculatorBackend.calc(expression) == expected
 
-    def test_division_by_zero(self, calculator: CalculatorBackend) -> None:
+    def test_division_by_zero(self) -> None:
         with pytest.raises(InvalidExpression) as e:
-            calculator.calc('1/0')
+            CalculatorBackend.calc('1/0')
 
         assert str(e.value) == 'Invalid expression: "1/0". division by zero.'

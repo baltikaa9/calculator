@@ -1,10 +1,14 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QKeyEvent
-from PySide6.QtWidgets import QMainWindow, QPushButton
+from PySide6.QtWidgets import QMainWindow, QPushButton, QApplication
 
-from calculator_backend import CalculatorBackend
+from exceptions.invalid_chars_exception import InvalidCharsException
+from exceptions.invalid_endwith_exception import InvalidEndwithException
+from exceptions.invalid_startwith_exception import InvalidStartwithException
+from exceptions.repeated_operators_exception import RepeatedOperatorsException
+from src.calculator_backend import CalculatorBackend
 from ui.main_window import Ui_MainWindow
-from validator import Validator
+from src.validator import Validator
 
 
 class CalculatorFrontend(QMainWindow):
@@ -16,7 +20,9 @@ class CalculatorFrontend(QMainWindow):
 
         self.__init_buttons()
 
-        self.calc_backend = CalculatorBackend(Validator())
+        self.validator = Validator()
+        
+        # self.calc_backend = CalculatorBackend()
 
         self.show()
 
@@ -42,8 +48,21 @@ class CalculatorFrontend(QMainWindow):
 
     def __calculate(self) -> None:
         expression = self.ui.lineEdit_expression.text()
+
         try:
-            result = self.calc_backend.calc(expression)
+            if not self.validator.validate_chars(expression):
+                raise InvalidCharsException(self.validator.invalid_chars)
+
+            if not self.validator.validate_repeated_operators(expression):
+                raise RepeatedOperatorsException(self.validator.repeated_operators)
+
+            if not self.validator.validate_startwith(expression):
+                raise InvalidStartwithException(self.validator.invalid_startwith)
+
+            if not self.validator.validate_endwith(expression):
+                raise InvalidEndwithException(self.validator.invalid_endwith)
+
+            result = CalculatorBackend.calc(expression)
             self.ui.lineEdit_result.setText(str(result))
         except Exception as e:
             self.ui.lineEdit_result.setText(str(e))
@@ -66,3 +85,10 @@ class CalculatorFrontend(QMainWindow):
         elif event.key() == Qt.Key_Percent: self.ui.pushButton_percent.click()
         else: super().keyPressEvent(event)
 
+
+
+if __name__ == '__main__':
+    app = QApplication()
+    c = CalculatorFrontend()
+
+    print(c.validator.validate('123'))

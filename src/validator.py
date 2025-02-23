@@ -23,6 +23,13 @@ class Validator:
     def invalid_endwith(self) -> list[str] | None:
         return self.__current_invalid_endwith
 
+    def validate(self, expression: str) -> bool:
+        if not self.validate_chars(expression): return False
+        if not self.validate_repeated_operators(expression): return False
+        if not self.validate_startwith(expression): return False
+        if not self.validate_endwith(expression): return False
+        return True
+
     def __validate(self, expression: str, regex: str, error_attr: str) -> bool:
         match = re.findall(regex, expression, re.MULTILINE)
         if match:
@@ -45,11 +52,11 @@ class Validator:
 
 if __name__ == '__main__':
     validator = Validator()
-    is_valid = validator.validate_startwith('*1')
+    is_valid = validator.validate_endwith('1+')
 
     print(is_valid)
 
-    print(validator.invalid_startwith)
+    print(validator.invalid_endwith)
 
     # if not is_valid:
     #     raise ValueError(f'Invalid characters in expression: {validator.invalid_chars}')
